@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanyuxia.seckill.dao.SuccessKilledDao">
+	<!-- 目的：为DAO接口方法提供sql语句配置 -->
+
+<!-- 	<resultMap type="SuccessKilled" id="SuccessKilledMap">
+		<id property="seckillId" column="success_seckill_id"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="success_create_time"/>
+		<association property="seckill" javaType="Seckill">
+			<id property="seckillId" column="seckill_id"/>
+			<result property="name" column="name"/>
+			<result property="number" column="number"/>
+			<result property="createTime" column="create_time"/>
+			<result property="startTime" column="start_time"/>
+			<result property="endTime" column="end_time"/>
+		</association>
+		<collection property=""></collection>
+	</resultMap> -->
+
+	<!-- 插入一行 -->
+	<insert id="insertSuccesskilled">
+		<!-- 'ignore' 忽略主键冲突错误(返回值为0) -->
+		insert ignore into
+		success_killed(seckill_id,user_phone,state)
+		values(#{seckillId},#{userPhone},0)
+	</insert>
+	
+	<!-- 通过商品id查询订单，这些订单都携带秒杀对象实体 -->
+	<select id="queryByIdWithSeckill" resultType="SuccessKilled">
+		select 
+		a.seckill_id,
+		a.user_phone,
+		a.state,
+		a.create_time,
+		b.seckill_id "seckill.seckillId",
+		b.name "seckill.name",
+		b.number "seckill.number",
+		b.create_time "seckill.createTime",
+		b.start_time "seckill.startTime",
+		b.end_time "seckill.endTime"
+		from success_killed a inner join seckill b on a.seckill_id = b.seckill_id
+		where a.seckill_id = #{seckillId}
+	</select>
+	
+
+	<!-- 根据商品id和用户电话号码查询该订单，并携带秒杀对象实体 -->
+	<select id="queryWithSeckill" resultType="SuccessKilled">
+		select 
+		a.seckill_id,
+		a.user_phone,
+		a.state,
+		a.create_time,
+		b.seckill_id "seckill.seckillId",
+		b.name "seckill.name",
+		b.number "seckill.number",
+		b.create_time "seckill.createTime",
+		b.start_time "seckill.startTime",
+		b.end_time "seckill.endTime"
+		from success_killed a inner join seckill b on a.seckill_id = b.seckill_id
+		where a.seckill_id = #{seckillId}
+	</select>
+
+
+
+</mapper>
