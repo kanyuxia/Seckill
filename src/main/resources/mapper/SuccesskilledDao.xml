@@ -63,6 +63,7 @@
 		b.end_time "seckill.endTime"
 		from success_killed a inner join seckill b on a.seckill_id = b.seckill_id
 		where a.seckill_id = #{seckillId}
+		and a.user_phone=#{userPhone}
 	</select>
 
 

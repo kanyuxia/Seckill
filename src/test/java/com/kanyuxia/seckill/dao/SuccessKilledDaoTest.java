@@ -21,7 +21,7 @@ public class SuccessKilledDaoTest {
 	@Test
 	public void testInsertSuccesskilled() {
 		long id = 1000L;
-		long userPhone = 184836203687L;
+		long userPhone = 18483620368L;
 		int updateColumn = successKilledDao.insertSuccesskilled(id,userPhone);
 		System.out.println(updateColumn);
 	}
