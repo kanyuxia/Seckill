@@ -36,7 +36,7 @@ public class SeckillServiceImpl implements SeckillService {
 	private SuccessKilledDao successKilledDao;
 
 	public List<Seckill> getSeckillList() {
-		return seckillDao.queryAll(0, 4);
+		return seckillDao.queryAll(0, 10);
 	}
 
 	public Seckill getById(long seckillId) {

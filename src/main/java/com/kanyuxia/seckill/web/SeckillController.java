@@ -55,6 +55,7 @@ public class SeckillController {
 		return "detail";
 	}
 
+	
 	@RequestMapping(value = "/{seckillId}/exposer", method = RequestMethod.POST, produces = {
 			"application/json;charset=UTF-8" })
 	@ResponseBody
@@ -76,7 +77,7 @@ public class SeckillController {
 			"application/json;charset=UTF-8" })
 	@ResponseBody
 	public SeckillResult<SeckillExecution> execute(@PathVariable("seckillId") Long seckillId,
-			@PathVariable("md5") String md5, @CookieValue(value = "userphone", required = false) Long userPhone) {
+			@PathVariable("md5") String md5, @CookieValue(value = "userPhone", required = false) Long userPhone) {
 		// 也可以使用SpringMVC valid方式验证
 		if(userPhone == null){
 			return new SeckillResult<SeckillExecution>(false, "未注册");
@@ -85,17 +86,17 @@ public class SeckillController {
 		try {
 			SeckillExecution seckillExecution = seckillService.executeSeckill(seckillId, userPhone, md5);
 			result = new SeckillResult<SeckillExecution>(true, seckillExecution);
+			System.out.println("seckillExecution"+seckillExecution);
 		}catch (RepeatKillException e) {
 			SeckillExecution seckillExecution = new SeckillExecution(seckillId,SeckillStateEnum.REPEAT_KILL);
-			return new SeckillResult<SeckillExecution>(false, seckillExecution);
+			return new SeckillResult<SeckillExecution>(true, seckillExecution);
 		}catch (SeckillCloseException e) {
 			SeckillExecution seckillExecution = new SeckillExecution(seckillId,SeckillStateEnum.END);
-			return new SeckillResult<SeckillExecution>(false, seckillExecution);
+			return new SeckillResult<SeckillExecution>(true, seckillExecution);
 		}catch (SeckillException e) {
 			SeckillExecution seckillExecution = new SeckillExecution(seckillId,SeckillStateEnum.INNER_ERROR);
-			return new SeckillResult<SeckillExecution>(false, seckillExecution);
-		}
-		catch (Exception e) {
+			return new SeckillResult<SeckillExecution>(true, seckillExecution);
+		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			result = new SeckillResult<SeckillExecution>(false, e.getMessage());
 		}
