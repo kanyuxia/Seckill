@@ -15,14 +15,12 @@
 	<!-- 1.开启SpringMVC注解模式 -->
 	<!-- 简化配置:
 			(1).自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter.
-			(2).提供一系列:数据绑定,一些注解如:数字与日期的format @NumberFormat,@DateTimeFormat等,xml、json默认读写支持.
-	 -->        
+			(2).提供一系列:数据绑定,一些注解如:数字与日期的format @NumberFormat,@DateTimeFormat等,xml、json默认读写支持.-->        
     <mvc:annotation-driven/>
 	
 	<!-- 2.静态资源默认servlet配置:
 			(1).加入对静态资源的处理:js、gif、png
-			(2).允许使用"/"做整体映射
-	 -->
+			(2).允许使用"/"做整体映射-->
 	<mvc:default-servlet-handler/>
 	
 	<!-- 3.配置ViewResolver -->
